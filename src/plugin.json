@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "AI chat Plugin",
+  "id": "ai-chat-panel",
+  "info": {
+    "keywords": ["panel", "API", "AI", "KI", "GROQ"],
+    "description": "This Plugin si used to send a request enriched with the dashboard data to groq with with a user question.",
+    "author": {
+      "name": "lennartzeidler"
+    },
+    "logos": {
+      "small": "img/logo_ai_generated.png",
+      "large": "img/logo_ai_generated.png"
+    },
+    "links": [],
+    "screenshots": [],
+    "version": "1.0.0", 
+    "updated": "2024-03-03"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=10.4.0",
+    "plugins": []
+  }
+}
