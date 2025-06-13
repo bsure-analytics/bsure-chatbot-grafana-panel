@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
+  "type": "panel",
+  "name": "b.sure Chatbot",
+  "id": "bsure-chatbot-panel",
+  "info": {
+    "keywords": ["panel", "AI", "chatbot", "groq", "llm", "analytics", "dashboard"],
+    "description": "AI-powered chatbot panel that enriches user questions with dashboard data and provides contextual responses using Groq LLM API",
+    "author": {
+      "name": "b.sure GmbH",
+      "email": "hello@bsure-analytics.de",
+      "url": "https://www.bsure-analytics.de"
+    },
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://www.bsure-analytics.de"
+      }
+    ],
+    "screenshots": [],
+    "version": "1.0.0",
+    "updated": "2025-06-13"
+  },
+  "dependencies": {
+    "grafanaDependency": ">=10.4.0",
+    "plugins": []
+  },
+  "backend": true,
+  "executable": "gpx_bsure-chatbot-panel",
+  "state": "alpha"
+}
