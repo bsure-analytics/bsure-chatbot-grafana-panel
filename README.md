@@ -19,11 +19,22 @@ This plugin enriches user questions with dashboard context and sends them to Gro
 
 ## Configuration
 
-### Environment Variables
+### API Key Configuration
 
-The plugin requires the following environment variable to be set on the Grafana server:
+The plugin supports two methods for configuring your Groq API key:
 
-- **GROQ_API_KEY**: Your Groq API key for LLM access
+#### Production/Grafana Cloud
+Configure the API key through Grafana's plugin settings:
+1. Go to **Administration** → **Plugins**
+2. Find **b.sure Chatbot** plugin
+3. Click **Configuration**
+4. In the secure configuration section, set **groqApiKey** to your Groq API token
+
+#### Local Development
+Set the environment variable on your Grafana server:
+```bash
+export GROQ_API_KEY="your-groq-api-key-here"
+```
 
 ### Panel Configuration
 
@@ -34,17 +45,16 @@ The plugin provides the following configuration options in the panel editor:
 
 ### Security Architecture
 
-✅ **Secure Backend Implementation**: This plugin includes a Go backend component that securely handles the `GROQ_API_KEY` environment variable.
+✅ **Secure Backend Implementation**: This plugin includes a Go backend component that securely handles API keys through Grafana's secure configuration system.
 The frontend never accesses API keys directly, ensuring enterprise-grade security.
 
 ## Usage
 
-1. Set the `GROQ_API_KEY` environment variable on your Grafana server
-2. Add the Chatbot Panel to your dashboard
-3. Configure the panel settings (initial message, LLM model)
-4. Type questions about your dashboard data in the chat interface
-5. The plugin will automatically enrich your question with data from all panels in the dashboard
-6. Receive AI-powered insights based on your data
+1. **Configure API Key**: Set up your Groq API key using one of the methods above
+2. **Add Panel**: Add the Chatbot Panel to your dashboard
+3. **Configure Panel**: Set initial message and LLM model in panel settings
+4. **Chat**: Type questions about your dashboard data in the chat interface
+5. **Get Insights**: The plugin automatically enriches your question with data from all panels and provides AI-powered responses
 
 ## Development
 
@@ -119,6 +129,7 @@ npm run dev:backend && docker compose restart
 - `npm run build:backend` - Build backend for production
 - `npm run build:all` - Build both frontend and backend for production
 - `npm run dev:all` - Build backend and start frontend in watch mode
+- `npm run package` - Build and package plugin for distribution
 - `npm run clean` - Clean build artifacts
 
 ### Testing
@@ -172,7 +183,22 @@ GRAFANA_VERSION=11.3.0 npm run server
 GRAFANA_IMAGE=grafana-enterprise npm run server
 ```
 
-## Distributing your plugin
+## Plugin Distribution
+
+### Packaging for Submission
+
+To package the plugin for Grafana Cloud submission:
+
+```bash
+npm run package
+```
+
+This creates:
+- `bsure1-chatbot-panel.zip` - Plugin archive with correct structure
+- `bsure1-chatbot-panel.zip.md5` - MD5 checksum
+- `bsure1-chatbot-panel.zip.sha1` - SHA1 checksum
+
+### Plugin Signing
 
 When distributing a Grafana plugin either within the community or privately the plugin must be signed so the Grafana application can verify its authenticity. This can be done with the `@grafana/sign-plugin` package.
 

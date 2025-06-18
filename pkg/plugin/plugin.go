@@ -139,7 +139,7 @@ func (ds *Datasource) handleGroqChat(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get API key from plugin configuration
-	// For Grafana Cloud, the API key should be configured via the plugin's secure configuration
+	// For production use, the API key should be configured via the plugin's secure configuration
 	apiKey, exists := ds.settings.DecryptedSecureJSONData["groqApiKey"]
 	if !exists || apiKey == "" {
 		log.DefaultLogger.Error("GROQ API key not configured - please configure through Grafana plugin settings")
