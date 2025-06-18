@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"regexp"
 	"sync"
 	"time"
@@ -79,11 +78,15 @@ var (
 )
 
 // Datasource represents an instance of the plugin.
-type Datasource struct{}
+type Datasource struct {
+	settings backend.DataSourceInstanceSettings
+}
 
 // NewDatasource creates a new plugin instance.
-func NewDatasource(_ context.Context, _ backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
-	return &Datasource{}, nil
+func NewDatasource(_ context.Context, settings backend.DataSourceInstanceSettings) (instancemgmt.Instance, error) {
+	return &Datasource{
+		settings: settings,
+	}, nil
 }
 
 // Dispose here tells plugin SDK that plugin wants to clean up resources when a new instance
@@ -135,11 +138,12 @@ func (ds *Datasource) handleGroqChat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get API key from environment variable
-	apiKey := os.Getenv("GROQ_API_KEY")
-	if apiKey == "" {
-		log.DefaultLogger.Error("API key not configured")
-		http.Error(w, "Service configuration error", http.StatusInternalServerError)
+	// Get API key from plugin configuration
+	// For Grafana Cloud, the API key should be configured via the plugin's secure configuration
+	apiKey, exists := ds.settings.DecryptedSecureJSONData["groqApiKey"]
+	if !exists || apiKey == "" {
+		log.DefaultLogger.Error("GROQ API key not configured - please configure through Grafana plugin settings")
+		http.Error(w, "API key not configured - please set up GROQ API key in plugin configuration", http.StatusInternalServerError)
 		return
 	}
 

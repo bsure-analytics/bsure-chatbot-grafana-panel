@@ -12,6 +12,7 @@
     "e2e": "playwright test",
     "lint": "eslint --cache --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix && prettier --write --list-different .",
+    "package": "scripts/package.sh",
     "server": "docker compose up --build",
     "sign": "npx --yes @grafana/sign-plugin@latest --verbose",
     "test": "jest --watch --onlyChanged",
