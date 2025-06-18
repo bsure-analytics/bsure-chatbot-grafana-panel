@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
   "name": "b.sure Chatbot",
-  "id": "bsure-chatbot-panel",
+  "id": "bsure1-chatbot-panel",
   "info": {
     "keywords": ["panel", "AI", "chatbot", "groq", "llm", "analytics", "dashboard"],
     "description": "AI-powered chatbot panel that enriches user questions with dashboard data and provides contextual responses using Groq LLM API",
